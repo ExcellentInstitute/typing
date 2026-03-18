@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excellent Institute - Beginner Typing Notes</title>
+    <style>
+        /* --- General Reset & Variables --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        :root {
+            --primary: #1e293b;
+            --secondary: #0ea5e9;
+            --bg-color: #f0f9ff;
+            --text-color: #334155;
+            --nav-bg: #0f172a;
+            --nav-hover: #1e293b;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Desktop Navigation (Sidebar) --- */
+        aside {
+            width: 280px;
+            background-color: var(--nav-bg);
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            flex-shrink: 0;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        .nav-header {
+            padding: 20px;
+            background-color: #020617;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+        }
+        .nav-header h2 { font-size: 1.3rem; margin-bottom: 10px; color: #e2e8f0; }
+        .print-hint { font-size: 0.8rem; color: #94a3b8; margin-bottom: 15px; }
+        
+        .print-btn {
+            width: 100%;
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: block;
+            text-align: center;
+        }
+        .print-btn:hover { background-color: #059669; }
+
+        nav { display: flex; flex-direction: column; overflow-y: auto; }
+        .nav-item {
+            display: block;
+            padding: 14px 20px;
+            text-decoration: none;
+            color: #f8fafc;
+            border-left: 4px solid transparent;
+            transition: all 0.2s;
+            font-size: 1.05rem;
+            border-bottom: 1px solid #1e293b;
+        }
+        .nav-item:hover { 
+            background-color: var(--nav-hover); 
+            border-left: 4px solid var(--secondary);
+            color: #38bdf8;
+        }
+
+        /* --- Main Content Area (Scrollable) --- */
+        main {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            height: 100%;
+        }
+        
+        /* --- Watermark & Page Content Styling --- */
+        .page-content {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin: 0 auto 40px auto; 
+            position: relative; 
+            z-index: 1; 
+            overflow: hidden; 
+        }
+
+        /* EXCELLENT INSTITUTE WATERMARK */
+        .page-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('excellent institute logo.jpeg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 50%; 
+            opacity: 0.08; 
+            z-index: -1; 
+            pointer-events: none; 
+        }
+
+        /* --- Typography & Elements --- */
+        h1 { color: var(--primary); border-bottom: 3px solid var(--secondary); padding-bottom: 8px; margin-bottom: 20px; font-size: 2rem; }
+        h2 { color: var(--secondary); margin-top: 35px; margin-bottom: 15px; font-size: 1.4rem; }
+        h3 { color: #475569; margin-top: 25px; margin-bottom: 10px; font-size: 1.15rem;}
+        p, ul { margin-bottom: 15px; font-size: 1.05rem; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+        .highlight { font-weight: bold; color: #dc2626; }
+        .concept-box { background: #e0f2fe; border-left: 4px solid var(--secondary); padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        
+        .table-responsive { overflow-x: auto; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; background: rgba(255, 255, 255, 0.85); min-width: 500px; }
+        th, td { border: 1px solid #cbd5e1; padding: 12px; text-align: left; vertical-align: top; }
+        th { background-color: rgba(248, 250, 252, 0.9); color: var(--primary); font-weight: bold; }
+        tr:nth-child(even) { background-color: rgba(241, 245, 249, 0.85); }
+
+        .key {
+            display: inline-block;
+            background: #f1f5f9;
+            border: 1px solid #94a3b8;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            box-shadow: 0 2px 0 #94a3b8;
+            margin: 0 3px;
+            color: #0f172a;
+            white-space: nowrap;
+        }
+
+        .print-footer { display: none; }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            body { flex-direction: column; overflow: auto; height: auto; }
+            aside { width: 100%; height: auto; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+            .nav-header { padding: 10px 15px; text-align: left; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;}
+            .nav-header h2 { margin-bottom: 5px; font-size: 1.1rem; width: 100%;}
+            .print-hint { display: none; }
+            .print-btn { width: auto; padding: 8px 12px; font-size: 0.9rem; margin-top: 5px;}
+            
+            nav { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--nav-bg); }
+            nav::-webkit-scrollbar { display: none; }
+            .nav-item { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; padding: 12px 15px; font-size: 0.95rem; }
+            
+            main { padding: 15px; overflow-y: visible; height: auto; }
+            .page-content { padding: 20px; margin-bottom: 20px; scroll-margin-top: 100px; }
+            .page-content::before { background-size: 80%; } 
+            h1 { font-size: 1.5rem; }
+            table { font-size: 0.85rem; }
+            th, td { padding: 8px; }
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            body { display: block; height: auto; overflow: visible; background-color: var(--bg-color); }
+            aside { display: none; }
+            main { padding: 0; width: 100%; display: block; overflow: visible; }
+            
+            .page-content { 
+                margin: 0 auto 30px auto !important; 
+                page-break-after: always; 
+                background: #ffffff !important;
+                padding: 40px !important;
+                border-radius: 10px !important;
+                box-shadow: none !important;
+                max-width: 100% !important;
+            }
+            .page-content:last-of-type { page-break-after: auto; }
+            table, tr, td, th, ul, li { page-break-inside: avoid; }
+            
+            .print-footer {
+                display: block;
+                text-align: center;
+                margin-top: 40px;
+                padding-top: 10px;
+                border-top: 1px dashed #94a3b8;
+                font-weight: bold;
+                font-size: 0.9rem;
+                color: #64748b;
+            }
+            @page { margin: 0.5in; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="nav-header">
+            <h2>Typing Institute</h2>
+            <div class="print-hint">(Turn on Background Graphics in print settings)</div>
+            <button class="print-btn" onclick="window.print()">🖨️ Print Notes</button>
+        </div>
+        <nav>
+            <a href="#part1" class="nav-item">1. Intro & Posture</a>
+            <a href="#part2" class="nav-item">2. Keyboard Layout</a>
+            <a href="#part3" class="nav-item">3. The Home Row</a>
+            <a href="#part4" class="nav-item">4. Top & Bottom Rows</a>
+            <a href="#part5" class="nav-item">5. Capital Letters & Numpad</a>
+            <a href="#part6" class="nav-item">6. Keyboard Shortcuts</a>
+        </nav>
+    </aside>
+
+    <main>
+        
+        <section id="part1" class="page-content">
+            <h1>Part 1: What is Touch Typing?</h1>
+            
+            <div class="concept-box">
+                <strong>Definition:</strong> <em>Touch Typing</em> is the ability to type on a keyboard without using your sense of sight to find the keys. Instead, you use "muscle memory" to know exactly where every key is located instantly.
+            </div>
+
+            <h2>Measuring Success: WPM and Accuracy</h2>
+            <p>Your typing skill is measured in two ways:</p>
+            <ul>
+                <li><strong>WPM (Words Per Minute):</strong> How many words you can type in 60 seconds. A good goal for beginners is 30 WPM. Professionals often type over 60 WPM.</li>
+                <li><strong>Accuracy:</strong> The percentage of correct keystrokes. <strong>Always aim for 95% accuracy or higher.</strong> If you type 100 words a minute but half are misspelled, your speed means nothing.</li>
+            </ul>
+
+            <h2>The Golden Rules for Beginners</h2>
+            <ul>
+                <li><span class="highlight">Rule #1: Never look at the keyboard!</span> If you look down, your brain will rely on your eyes instead of memorizing the key locations.</li>
+                <li><strong>Accuracy over Speed:</strong> In the beginning, type slowly and correctly. Forcing speed early creates bad habits that are hard to break.</li>
+                <li><strong>Rhythm:</strong> Try to type with an even, steady beat. Don't rush easy words and freeze on hard words.</li>
+            </ul>
+
+            <h2>Proper Posture (Stool Seating)</h2>
+            <p>Because you are practicing on stools without back support, maintaining proper core posture is absolutely critical to avoid neck and lower back pain:</p>
+            <ul>
+                <li><strong>Core straight:</strong> Sit up completely straight. Balance your weight evenly on the center of the stool. Do not hunch your shoulders.</li>
+                <li><strong>Feet flat:</strong> Plant both feet firmly flat on the floor to stabilize your body.</li>
+                <li><strong>Arms:</strong> Keep your elbows resting loosely close to your sides, bent at a 90-degree angle.</li>
+                <li><strong>Wrists:</strong> Keep your wrists completely straight and floating just above the keyboard. <strong class="highlight">Do not rest your wrists on the desk while typing.</strong> This restricts finger movement.</li>
+                <li><strong>Take Breaks:</strong> Without a backrest, your core muscles work harder. Stand up and stretch for 2 minutes every hour.</li>
+            </ul>
+        </section>
+
+        <section id="part2" class="page-content">
+            <h1>Part 2: Understanding the Keyboard</h1>
+            <p>A standard desktop computer keyboard has exactly <strong>104 keys</strong>. Before we place our fingers, we must understand how the board is organized into specific zones.</p>
+
+            <img src="keyboard-zones.jpg" alt="Keyboard Zones Diagram" style="width: 100%; max-width: 600px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid #cbd5e1;">
+
+            <h2>The Invisible Line (Left Hand vs. Right Hand)</h2>
+            <p>In touch typing, the main typing area is strictly divided into two halves. Imagine an invisible vertical line running down the middle of the keyboard. It passes directly between the <span class="key">T</span> and <span class="key">Y</span> keys, the <span class="key">G</span> and <span class="key">H</span> keys, and the <span class="key">B</span> and <span class="key">N</span> keys.</p>
+            <ul>
+                <li>Your <strong>Left Hand</strong> is strictly dedicated to keys on the left side of this invisible line.</li>
+                <li>Your <strong>Right Hand</strong> is strictly dedicated to keys on the right side of this invisible line.</li>
+            </ul>
+
+            <h2>Detailed Categories of Keys</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <th>Key Type</th>
+                        <th>Keys Included</th>
+                        <th>Primary Function</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Alphanumeric Keys</strong></td>
+                        <td>Letters (A-Z), Numbers (0-9), and common punctuation (?, !, ., @).</td>
+                        <td>These are the core typing keys used to input written text and data into the computer.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Control & Editing Keys</strong></td>
+                        <td><span class="key">Spacebar</span>, <span class="key">Enter</span>, <span class="key">Backspace</span>, <span class="key">Delete</span>, <span class="key">Tab</span></td>
+                        <td>Used to manipulate the layout of your text, create spaces, start new lines, erase mistakes, or structure paragraphs.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Modifier Keys</strong></td>
+                        <td><span class="key">Shift</span>, <span class="key">Ctrl</span> (Control), <span class="key">Alt</span> (Alternate), <span class="key">Windows</span></td>
+                        <td>These buttons do nothing when pressed alone. They are held down simultaneously with other keys to "modify" their output (like Capitalizing a letter) or to execute a shortcut.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Navigation Keys</strong></td>
+                        <td>Arrow Keys (↑ ↓ ← →), <span class="key">Home</span>, <span class="key">End</span>, <span class="key">Page Up/Down</span></td>
+                        <td>Allows you to move the blinking text cursor around the screen or scroll through a document without erasing or editing any text.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Function Keys</strong></td>
+                        <td>Very Top Row (<span class="key">F1</span> to <span class="key">F12</span>)</td>
+                        <td>These are special shortcut keys whose jobs change depending on the software you are using (e.g., F5 refreshes a webpage, F1 opens the Help menu).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Numeric Keypad (Numpad)</strong></td>
+                        <td>Calculator layout on the far right (0-9, +, -, *, /)</td>
+                        <td>Designed for extremely fast, one-handed number entry. Used heavily in data entry, accounting, and Tally.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>The Most Important Special Keys Explained</h2>
+            <p>Every student must master these highly utilized keys:</p>
+            <ul>
+                <li><strong><span class="key">Tab</span> (Tabulator Key):</strong> Located on the left side. Instead of pressing the spacebar five times to indent a paragraph, press Tab once. <strong>Crucial for internet forms:</strong> Pressing Tab allows you to instantly jump from one input box to the next (like moving from "First Name" to "Last Name").</li>
+                <li><strong><span class="key">Ctrl</span> (Control Key):</strong> Found on the bottom left and right. Pressing this key by itself does nothing. It is used in combination with other keys to perform shortcuts (like holding Ctrl and pressing 'C' to copy text).</li>
+                <li><strong><span class="key">Windows Key</span>:</strong> Located between Ctrl and Alt. Pressing this instantly opens the computer's Start Menu. It is also used for computer shortcuts (like Windows + D to hide all open windows and show the desktop).</li>
+                <li><strong><span class="key">Esc</span> (Escape Key):</strong> Located at the very top-left corner. This is your "Cancel" button. If a pop-up window appears, or a program loads in full-screen mode, pressing Esc will usually close it or exit out.</li>
+                <li><strong><span class="key">PrtScn</span> (Print Screen):</strong> Located near the top-right. Pressing this instantly takes a digital "photograph" (screenshot) of whatever is currently visible on your monitor. You can then use Ctrl+V to paste that picture into Paint or MS Word.</li>
+            </ul>
+        </section>
+
+        <section id="part3" class="page-content">
+            <h1>Part 3: The Home Row (Your Base Camp)</h1>
+            
+            <div class="concept-box">
+                <strong>What is the Home Row?</strong> It is the middle horizontal row of letters on the keyboard (A, S, D, F, G, H, J, K, L, ;). In touch typing, this is your "Base Camp." Your fingers must ALWAYS rest on these specific keys before you start typing, and automatically return here after pressing any other key.
+            </div>
+
+            <h2>How to Place Your Fingers</h2>
+            <p>Curve your fingers slightly (as if holding a small ball) and place them gently on the keyboard following this exact pattern:</p>
+            
+            <h3>Left Hand Placement:</h3>
+            <ul>
+                <li><strong>Pinky Finger</strong> rests on <span class="key">A</span></li>
+                <li><strong>Ring Finger</strong> rests on <span class="key">S</span></li>
+                <li><strong>Middle Finger</strong> rests on <span class="key">D</span></li>
+                <li><strong>Index Finger</strong> rests on <span class="key">F</span></li>
+            </ul>
+
+            <h3>Right Hand Placement:</h3>
+            <ul>
+                <li><strong>Index Finger</strong> rests on <span class="key">J</span></li>
+                <li><strong>Middle Finger</strong> rests on <span class="key">K</span></li>
+                <li><strong>Ring Finger</strong> rests on <span class="key">L</span></li>
+                <li><strong>Pinky Finger</strong> rests on <span class="key">;</span> (Semicolon)</li>
+            </ul>
+
+            <h3>Thumbs:</h3>
+            <p>Both thumbs should rest lightly on the <span class="key">Spacebar</span>. Use whichever thumb feels most comfortable to press it. Never use your index finger to press the spacebar.</p>
+
+            <h2>The Guide Keys (F and J)</h2>
+            <p>If you aren't looking, how do you know your hands are in the right place? Run your index fingers over the <span class="key">F</span> and <span class="key">J</span> keys. You will feel a tiny physical bump or raised line on the plastic. These are the <strong>Guide Keys</strong>. Whenever you feel lost, slide your index fingers until you feel those bumps to reset your position.</p>
+        </section>
+
+        <section id="part4" class="page-content">
+            <h1>Part 4: Reaching the Top and Bottom Rows</h1>
+            <p>When typing, your fingers stretch up or curl down to hit other letters, but they must "snap" right back to the Home Row immediately after. Keep your hands relatively still; only the necessary finger should stretch.</p>
+
+            <h2>The Top Row</h2>
+            <ul>
+                <li><strong>Left Pinky:</strong> Reaches up to <span class="key">Q</span></li>
+                <li><strong>Left Ring:</strong> Reaches up to <span class="key">W</span></li>
+                <li><strong>Left Middle:</strong> Reaches up to <span class="key">E</span></li>
+                <li><strong>Left Index:</strong> Reaches up to <span class="key">R</span> and stretches slightly right to hit <span class="key">T</span>.</li>
+            </ul>
+            <ul>
+                <li><strong>Right Index:</strong> Reaches up to <span class="key">U</span> and stretches slightly left to hit <span class="key">Y</span>.</li>
+                <li><strong>Right Middle:</strong> Reaches up to <span class="key">I</span></li>
+                <li><strong>Right Ring:</strong> Reaches up to <span class="key">O</span></li>
+                <li><strong>Right Pinky:</strong> Reaches up to <span class="key">P</span></li>
+            </ul>
+
+            <h2>The Bottom Row</h2>
+            <p>Curling fingers down is often the hardest part for beginners. Practice slowly.</p>
+            <ul>
+                <li><strong>Left Pinky:</strong> Curls down to <span class="key">Z</span></li>
+                <li><strong>Left Ring:</strong> Curls down to <span class="key">X</span></li>
+                <li><strong>Left Middle:</strong> Curls down to <span class="key">C</span></li>
+                <li><strong>Left Index:</strong> Curls down to hit <span class="key">V</span> and <span class="key">B</span>.</li>
+            </ul>
+            <ul>
+                <li><strong>Right Index:</strong> Curls down to hit <span class="key">N</span> and <span class="key">M</span>.</li>
+                <li><strong>Right Middle:</strong> Curls down to <span class="key">,</span> (Comma)</li>
+                <li><strong>Right Ring:</strong> Curls down to <span class="key">.</span> (Period)</li>
+                <li><strong>Right Pinky:</strong> Curls down to <span class="key">/</span> (Slash)</li>
+            </ul>
+        </section>
+
+        <section id="part5" class="page-content">
+            <h1>Part 5: Capital Letters, Symbols & Numpad</h1>
+            
+            <h2>Typing CAPITAL Letters</h2>
+            <p>There are two different ways to make capital letters. Knowing when to use which is vital for speed.</p>
+            
+            <h3>1. The Caps Lock Key (For ALL CAPS)</h3>
+            <p>If you press the <span class="key">Caps Lock</span> key once, an indicator light will turn on. Now, <em>every</em> letter you type will be CAPITALIZED. Press the key again to turn it off. <strong>Do not use Caps Lock to capitalize just the first letter of a sentence or name.</strong></p>
+
+            <h3>2. The Shift Key (For Single Capitals)</h3>
+            <p>To capitalize just a single letter, use the <span class="key">Shift</span> key.</p>
+            <div class="concept-box">
+                <strong>The Golden Rule of Shift:</strong> To use the Shift key, you must hold it down using the pinky finger of the hand <em>opposite</em> to the letter you are typing. If you need a right-hand letter, hold the left Shift key.
+            </div>
+            
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <th>Desired Output</th>
+                        <th>Keystroke</th>
+                        <th>Hand Coordination</th>
+                    </tr>
+                    <tr>
+                        <td>Capital <strong>K</strong></td>
+                        <td><span class="key">Shift</span> + <span class="key">K</span></td>
+                        <td>Left Pinky holds (Shift) + Right Middle presses (K)</td>
+                    </tr>
+                    <tr>
+                        <td>Capital <strong>S</strong></td>
+                        <td><span class="key">Shift</span> + <span class="key">S</span></td>
+                        <td>Right Pinky holds (Shift) + Left Ring presses (S)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>The Number Row & Symbols</h2>
+            <p>Above the letters is the Number Row. To type the symbol on top of the number (like @, #, $), use the Shift rule.</p>
+            <ul>
+                <li><strong>Left Hand:</strong> Pinky <span class="key">1</span>, Ring <span class="key">2</span>, Middle <span class="key">3</span>, Index <span class="key">4</span> & <span class="key">5</span>.</li>
+                <li><strong>Right Hand:</strong> Index <span class="key">6</span> & <span class="key">7</span>, Middle <span class="key">8</span>, Ring <span class="key">9</span>, Pinky <span class="key">0</span>.</li>
+            </ul>
+
+            <h2>The Numeric Keypad (Numpad)</h2>
+            <p>On standard desktop keyboards, the right side has a calculator-like Numpad. This is used for heavy data entry (accounting, tally, math). </p>
+            <ul>
+                <li><strong>Num Lock:</strong> You must press the <span class="key">Num Lock</span> key to turn the Numpad on. If it is off, the keys will act as arrows instead.</li>
+                <li><strong>Numpad Home Row:</strong> Your right hand rests on <span class="key">4</span> (Index), <span class="key">5</span> (Middle), and <span class="key">6</span> (Ring). The 5 key usually has a small bump, just like F and J!</li>
+            </ul>
+        </section>
+
+        <section id="part6" class="page-content">
+            <h1>Part 6: Comprehensive Keyboard Shortcuts</h1>
+            <p>Professional typists and computer operators rarely use a mouse. Reaching for a mouse constantly breaks your typing flow and wastes time. Learn these essential shortcuts to control the computer efficiently.</p>
+            
+            <h2>1. Text Editing & File Management</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <th>Shortcut</th>
+                        <th>Action Performed</th>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">A</span></td>
+                        <td><strong>Select All:</strong> Highlights all the text in your document instantly.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">C</span></td>
+                        <td><strong>Copy:</strong> Copies highlighted text so you can duplicate it.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">X</span></td>
+                        <td><strong>Cut:</strong> Removes highlighted text, but saves it in memory to move elsewhere.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">V</span></td>
+                        <td><strong>Paste:</strong> Places the text you just Copied or Cut.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">Z</span></td>
+                        <td><strong>Undo:</strong> Erases the last mistake you just made.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">Y</span></td>
+                        <td><strong>Redo:</strong> Re-applies an action you just Undid.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">S</span></td>
+                        <td><strong>Save:</strong> Saves your current document or file.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">P</span></td>
+                        <td><strong>Print:</strong> Opens the print menu.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">F</span></td>
+                        <td><strong>Find:</strong> Opens a search bar to find specific words in a document.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>2. Advanced Text Navigation (No Mouse)</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <th>Shortcut</th>
+                        <th>Action Performed</th>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">Arrow Keys</span></td>
+                        <td><strong>Jump Words:</strong> Moves the cursor one full word at a time instead of one letter.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Shift</span> + <span class="key">Arrow Keys</span></td>
+                        <td><strong>Highlight:</strong> Highlights text letter-by-letter using the keyboard.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">Arrows</span></td>
+                        <td><strong>Highlight Words:</strong> Highlights entire words at a time.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Home</span> / <span class="key">End</span></td>
+                        <td>Moves the cursor to the exact beginning or end of the line you are typing on.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">Backspace</span></td>
+                        <td><strong>Delete Word:</strong> Erases an entire word instantly instead of just one letter.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>3. Windows OS & General Navigation</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <th>Shortcut</th>
+                        <th>Action Performed</th>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Alt</span> + <span class="key">Tab</span></td>
+                        <td><strong>Switch Apps:</strong> Hold Alt and tap Tab to quickly switch between open windows or programs.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Windows Key</span> + <span class="key">D</span></td>
+                        <td><strong>Show Desktop:</strong> Minimizes all open windows to show the Desktop instantly.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Windows Key</span> + <span class="key">E</span></td>
+                        <td><strong>File Explorer:</strong> Opens "My Computer" or File Explorer.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Windows Key</span> + <span class="key">L</span></td>
+                        <td><strong>Lock PC:</strong> Instantly locks your computer screen (great for security).</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Alt</span> + <span class="key">F4</span></td>
+                        <td><strong>Close Program:</strong> Closes the active window or program entirely.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>4. Internet Browsing (Chrome/Edge)</h2>
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <th>Shortcut</th>
+                        <th>Action Performed</th>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Tab</span></td>
+                        <td><strong>Jump Fields:</strong> Extremely useful. Press Tab to instantly jump to the next input box when filling out online forms.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">T</span></td>
+                        <td>Opens a new blank tab in your web browser.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">W</span></td>
+                        <td>Closes the current tab you are looking at.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">T</span></td>
+                        <td><strong>Rescue Tab:</strong> Reopens the last tab you accidentally closed.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">J</span></td>
+                        <td>Opens your Downloads history.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">Ctrl</span> + <span class="key">H</span></td>
+                        <td>Opens your Browsing History.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">F5</span></td>
+                        <td><strong>Refresh:</strong> Reloads the current webpage.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="print-footer">
+                Excellent institute | Teacher colony, near SBI bank, Surada | Ph: 8658219398, 6371305069<br><br>
+                Student Name: _______________________ Date: _________
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
