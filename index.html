@@ -766,6 +766,59 @@
                 contentArea.classList.remove('active');
             }
         });
+
+        // 📱 MOBILE APP CHAPTER ISOLATION & OFFLINE PDF BRIDGE
+        const sections = Array.from(document.querySelectorAll('section.page-content'));
+
+        window.loadContent = function(index) {
+            if (index < 0 || index >= sections.length) return;
+            if (sidebar) sidebar.style.display = 'none';
+            sections.forEach((sec, i) => {
+                sec.style.display = (i === index) ? 'block' : 'none';
+            });
+            if (contentArea) contentArea.scrollTop = 0;
+        };
+
+        window.getCourseData = function() {
+            return sections.map((sec, idx) => {
+                const h1 = sec.querySelector('h1');
+                const title = h1 ? h1.innerText.trim() : `Part ${idx + 1}`;
+                const topics = [];
+                const headings = sec.querySelectorAll('h2');
+                if (headings.length > 0) {
+                    headings.forEach(h2 => {
+                        let textParts = [];
+                        let imgSrc = '';
+                        let next = h2.nextElementSibling;
+                        while (next && next.tagName !== 'H2') {
+                            if (next.tagName === 'IMG') {
+                                imgSrc = next.getAttribute('src') || '';
+                            } else {
+                                const imgInner = next.querySelector && next.querySelector('img');
+                                if (imgInner && !imgSrc) imgSrc = imgInner.getAttribute('src') || '';
+                                textParts.push(next.innerText.trim());
+                            }
+                            next = next.nextElementSibling;
+                        }
+                        topics.push({
+                            heading: h2.innerText.trim(),
+                            text: textParts.filter(Boolean).join('\n\n'),
+                            shortcut: '',
+                            imgSrc: imgSrc
+                        });
+                    });
+                } else {
+                    topics.push({ heading: title, text: sec.innerText.trim(), shortcut: '', imgSrc: '' });
+                }
+                return { id: `part${idx + 1}`, title: title, topics: topics };
+            });
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('chapter')) {
+            const chIdx = parseInt(urlParams.get('chapter'), 10);
+            if (!isNaN(chIdx)) window.loadContent(chIdx);
+        }
     </script>
 </body>
 </html>
